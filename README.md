@@ -31,33 +31,30 @@ For more information about the dataset, refer to [this link](https://www.kaggle.
 
 ## Model Architecture
 
-The model architecture consists of a series of convolutional layers followed by fully connected layers. Here's an overview of the model architecture:
+The model architecture has been updated to utilize a pre-trained EfficientNet model for improved performance and accuracy. Here's an overview of the new model architecture:
 
-### Convolutional Layers:
+### Base Model:
 
-- The model begins with two convolutional layers (`conv1` and `conv2`), which extract features from the input images.
-- Each convolutional layer is followed by a Rectified Linear Unit (ReLU) activation function (`relu1` and `relu2`) to introduce non-linearity to the model.
-- Max-pooling layers (`pool1` and `pool2`) are applied after each convolutional layer to downsample the feature maps and reduce spatial dimensions.
+- **EfficientNet-B0**: The model utilizes a pre-trained EfficientNet-B0 as the base model for feature extraction. This pre-trained model helps in leveraging transfer learning for better feature representations.
 
-### Fully Connected Layers:
+### Custom Layers:
 
-- Following the convolutional layers, the feature maps are flattened and passed through two fully connected layers (`fc1` and `fc2`).
-- The first fully connected layer (`fc1`) has 512 neurons and applies a ReLU activation function (`relu3`).
-- The final fully connected layer (`fc2`) outputs logits for each class without applying an activation function.
+1. **Features Extraction**:
 
-### Input and Output:
+   - The base model's children layers, excluding the last classification layer, are used for feature extraction.
+   - Output size from EfficientNet-B0 feature extraction: 1280.
 
-- Input images are assumed to have three channels (RGB).
-- The output layer has `num_classes` neurons, where `num_classes` represents the number of classes for classification (default: 53).
+2. **Classifier**:
+   - **Flatten Layer**: Flattens the output feature maps into a 1D tensor.
+   - **Fully Connected Layer**: A linear layer that maps the 1280 features to the number of classes (53).
 
 ### Forward Pass:
 
-- During the forward pass, input images (`x`) undergo convolutional operations, followed by activation functions and max-pooling.
-- The resulting feature maps are flattened and passed through fully connected layers to generate class logits.
+- The input images are passed through the EfficientNet-B0 feature extractor.
+- The extracted features are then flattened.
+- The flattened features are passed through the fully connected layer to get the class logits.
 
-Overall, the `CardClassifierCNN` architecture employs convolutional and fully connected layers to learn hierarchical representations of playing card images and make predictions based on these representations.
-
-For more details, refer to the Model Architecture section in the code.
+Overall, the `CardClassifierCNN` architecture employs a pre-trained EfficientNet-B0 for feature extraction and a custom classifier to predict the class of the playing card.
 
 ## Training Process
 
