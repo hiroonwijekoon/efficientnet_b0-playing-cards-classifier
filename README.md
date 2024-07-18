@@ -81,10 +81,11 @@ To use the model for inference, follow these steps:
 
 Ensure you have the following dependencies installed:
 
-- Python (version 3.9)
-- PyTorch (version 2.1.2)
+- PyTorch version 2.1.2
+- Torchvision version 0.16.2
+- Numpy version 1.26.3
+- Pandas version 2.1.4
 - Matplotlib
-- NumPy (version 1.26.3)
 - scikit-learn
 
 ## Contributing
